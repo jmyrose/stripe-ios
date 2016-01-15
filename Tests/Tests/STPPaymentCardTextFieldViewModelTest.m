@@ -89,6 +89,7 @@
     self.viewModel.cardNumber = @"4242424242424242";
     self.viewModel.rawExpiration = @"12/24";
     self.viewModel.cvc = @"123";
+    self.viewModel.zipcode = @"32312";
     XCTAssertTrue([self.viewModel isValid]);
     
     self.viewModel.cvc = @"12";
