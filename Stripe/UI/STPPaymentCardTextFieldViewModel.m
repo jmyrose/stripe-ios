@@ -73,9 +73,10 @@
     _cvc = [[STPCardValidator sanitizedNumericStringForString:cvc] stp_safeSubstringToIndex:maxLength];
 }
 
+const NSInteger ZipcodeMaxLength = 7;
+const NSInteger ZipcodeMinLength = 5;
 - (void)setZipcode:(NSString *)zipcode {
-    NSInteger maxLength = 6;
-    _zipcode = [[STPCardValidator sanitizedNumericStringForString:zipcode] stp_safeSubstringToIndex:maxLength];
+    _zipcode = [zipcode stp_safeSubstringToIndex:ZipcodeMaxLength];
 }
 
 - (STPCardBrand)brand {
@@ -102,9 +103,9 @@
         case STPCardFieldTypeCVC:
             return [STPCardValidator validationStateForCVC:self.cvc cardBrand:self.brand];
         case STPCardFieldTypeZipcode: {
-            if ([self.zipcode length] < 5) {
+            if ([self.zipcode length] < (ZipcodeMinLength)) {
                 return STPCardValidationStateIncomplete;
-            } else if ([self.zipcode length] > 6) {
+            } else if ([self.zipcode length] > ZipcodeMaxLength) {
                 return STPCardValidationStateInvalid;
             } else {
                 return STPCardValidationStateValid;

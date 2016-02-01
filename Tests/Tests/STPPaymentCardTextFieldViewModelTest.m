@@ -91,7 +91,19 @@
     self.viewModel.cvc = @"123";
     self.viewModel.zipcode = @"32312";
     XCTAssertTrue([self.viewModel isValid]);
-    
+
+    self.viewModel.zipcode = @"A1B2C3";
+    XCTAssertTrue([self.viewModel isValid]);
+
+    self.viewModel.zipcode = @"A1B-2C3";
+    XCTAssertTrue([self.viewModel isValid]);
+
+    self.viewModel.zipcode = @"323123";
+    XCTAssertTrue([self.viewModel isValid]);
+
+    self.viewModel.zipcode = @"A1B 2C3";
+    XCTAssertTrue([self.viewModel isValid]);
+
     self.viewModel.cvc = @"12";
     XCTAssertFalse([self.viewModel isValid]);
 }

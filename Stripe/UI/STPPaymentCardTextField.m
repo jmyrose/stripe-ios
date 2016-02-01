@@ -113,8 +113,14 @@ CGFloat const STPPaymentCardTextFieldDefaultPadding = 10;
     STPFormTextField *zipcodeField = [self buildTextField];
     zipcodeField.tag = STPCardFieldTypeZipcode;
     zipcodeField.alpha = 0;
+    zipcodeField.keyboardType = UIKeyboardTypeDefault;
     self.zipcodeField = zipcodeField;
     self.zipcodePlaceholder = @"ZIPCODE";
+
+//    self.cvcField.backgroundColor = [UIColor purpleColor];
+//    self.expirationField.backgroundColor = [UIColor redColor];
+//    self.numberField.backgroundColor = [UIColor yellowColor];
+//    self.zipcodeField.backgroundColor = [UIColor blueColor];
 
     UIView *fieldsView = [[UIView alloc] init];
     fieldsView.clipsToBounds = YES;
@@ -455,7 +461,13 @@ CGFloat const STPPaymentCardTextFieldDefaultPadding = 10;
     CGFloat placeholderWidth = [self widthForCardNumber:self.numberField.placeholder] - 4;
     CGFloat numberWidth = [self widthForCardNumber:self.viewModel.defaultPlaceholder] - 4;
     CGFloat numberFieldWidth = MAX(placeholderWidth, numberWidth);
+
     CGFloat nonFragmentWidth = [self widthForCardNumber:[self.viewModel numberWithoutLastDigits]] - 8;
+    if (self.viewModel.brand == STPCardBrandAmex) {
+        // AMEX cards have 1 less whitespace, so can have less length
+        numberFieldWidth -= 16;
+    }
+
     CGFloat numberFieldX = self.numberFieldShrunk ? STPPaymentCardTextFieldDefaultPadding - nonFragmentWidth : 8;
     return CGRectMake(numberFieldX, 0, numberFieldWidth, CGRectGetHeight(bounds));
 }
@@ -463,7 +475,7 @@ CGFloat const STPPaymentCardTextFieldDefaultPadding = 10;
 - (CGRect)zipcodeFieldRectForBounds:(CGRect)bounds {
     CGRect fieldsRect = [self fieldsRectForBounds:bounds];
 
-    CGFloat zipcodeWidth = MAX([self widthForText:self.zipcodeField.placeholder], [self widthForText:@"Z1Z1Z1"]);
+    CGFloat zipcodeWidth = MAX([self widthForText:self.zipcodeField.placeholder], [self widthForText:@"A1B-2C3"]);
     CGFloat zipcodeX = self.numberFieldShrunk ?
             CGRectGetWidth(fieldsRect) - zipcodeWidth - STPPaymentCardTextFieldDefaultPadding / 2  :
             CGRectGetWidth(fieldsRect);
@@ -482,7 +494,7 @@ CGFloat const STPPaymentCardTextFieldDefaultPadding = 10;
 }
 
 - (CGFloat)expirationWidth {
-    return MAX([self widthForText:self.expirationField.placeholder], [self widthForText:@"88/88"]);
+    return MAX([self widthForText:self.expirationField.placeholder], [self widthForText:@"88/88"]) - 6;
 }
 
 - (CGRect)cvcFieldRectForBounds:(CGRect)bounds {
