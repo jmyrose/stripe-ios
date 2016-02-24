@@ -475,7 +475,7 @@ CGFloat const STPPaymentCardTextFieldDefaultPadding = 10;
 - (CGRect)zipcodeFieldRectForBounds:(CGRect)bounds {
     CGRect fieldsRect = [self fieldsRectForBounds:bounds];
 
-    CGFloat zipcodeWidth = MAX([self widthForText:self.zipcodeField.placeholder], [self widthForText:@"A1B-2C3"]);
+    CGFloat zipcodeWidth = MAX([self widthForText:self.zipcodeField.placeholder], [self widthForText:@"88888"]);
     CGFloat zipcodeX = self.numberFieldShrunk ?
             CGRectGetWidth(fieldsRect) - zipcodeWidth - STPPaymentCardTextFieldDefaultPadding / 2  :
             CGRectGetWidth(fieldsRect);
