@@ -115,7 +115,7 @@ CGFloat const STPPaymentCardTextFieldDefaultPadding = 10;
     zipcodeField.alpha = 0;
     zipcodeField.keyboardType = UIKeyboardTypeDefault;
     self.zipcodeField = zipcodeField;
-    self.zipcodePlaceholder = @"ZIPCODE";
+    self.zipcodePlaceholder = @"ZIP";
 
 //    self.cvcField.backgroundColor = [UIColor purpleColor];
 //    self.expirationField.backgroundColor = [UIColor redColor];
